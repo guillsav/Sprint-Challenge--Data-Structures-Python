@@ -10,13 +10,39 @@ f = open('names_2.txt', 'r')
 names_2 = f.read().split("\n")  # List containing 10000 names
 f.close()
 
+
 duplicates = []
-for name_1 in names_1:
-    for name_2 in names_2:
-        if name_1 == name_2:
-            duplicates.append(name_1)
+# for name_1 in names_1:
+#     for name_2 in names_2:
+#         if name_1 == name_2:
+#             duplicates.append(name_1)
+
+# Reduce to on loop
+# for name in names_1:
+#     if name in names_2:
+#         duplicates.append(name)
+
+
+def find_duplicates(arr):
+    count = {}
+
+    for name in arr:
+        try:
+            count[name] += 1
+        except:
+            count[name] = 1
+
+    for duplicate in count:
+        if(count[duplicate] == 2):
+            duplicates.append(duplicate)
+
+
+all_names = names_1 + names_2
+
+
+find_duplicates(all_names)
 
 end_time = time.time()
-print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
-print (f"runtime: {end_time - start_time} seconds")
 
+print(f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
+print(f"runtime: {end_time - start_time} seconds")
